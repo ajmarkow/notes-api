@@ -1,9 +1,10 @@
 import * as uuid from "uuid";
+import handler from "./libs/handler-lib";
 import AWS from "aws-sdk";
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-export async function main(event, context) {
+export async(event, context) {
 //Request body is parsed as a json string
 	const data = JSON.parse(event.body);
 	const params = {
@@ -29,5 +30,3 @@ export async function main(event, context) {
 			statusCode:500,
 			body:JSON.stringify({error: e.message})
 			};
-		}
-	}
