@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "node-fetch": "^2.6.1",
+    "readme-inspector": "^2.0.15",
     "repos": "^2.0.0"
   }
 }

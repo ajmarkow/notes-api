@@ -14,16 +14,9 @@ function addResponse(response, array) {
     return array;
 };
 
-async function getGrades(inputArray) {
-	let Scores = [];
-	for (const item of inputArray) {
-	fetch(`http://readmescore.ajm.codes/score.json?url=${item}`)
-    .then((response) => Scores.push(response))
-    .catch((error) => {
-      let errorMessage = JSON.stringify(error);
-      console.log(errorMessage);
-    });  }
-	return Scores;
+async function getGrades(repoSlug) {
+		let repositoryScore = await fetch(`http://readmescore.ajm.codes/score.json?url=${encodeURIComponent(repoSlug)}`);
+		return repositoryScore;
 };
 export async function main(event, context){
 //Request body is parsed as a json string
@@ -37,7 +30,9 @@ export async function main(event, context){
 			console.log(errorMessage);
 		});
 	let repositoriesAsJSON = JSON.stringify(returned_repos);
-	let repositoriesScores = getGrades(repositoriesAsJSON);
+	let repositoriesScores = [];
+	returned_repos.forEach((item) => repositoriesScores.push(getGrades(item)));
+	let resolvedScores = await Promise.all(repositoriesScores).then(response => JSON.stringify(response));
 	const params = {
     TableName: process.env.TableName,
     Item: {
@@ -45,7 +40,7 @@ export async function main(event, context){
       githubUsername: `${usernameParameter}`,
       userId: "123", //author user id
       repositories: `${repositoriesAsJSON}`,
-      repositories_scores: `${repositoriesScores}`,
+      repositories_scores: `${resolvedScores}`,
       gradeId: uuid.v1(), //unique id for each
       attachment: data.attachment,
       createdAt: Date.now(),
