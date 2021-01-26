@@ -16,7 +16,7 @@ function addResponse(response, array) {
 
 async function getGrades(repoSlug) {
 		let repositoryScore = await fetch(`http://readmescore.ajm.codes/score.json?url=${encodeURIComponent(repoSlug)}`);
-		return repositoryScore;
+		return repositoryScore.json();
 };
 export async function main(event, context){
 //Request body is parsed as a json string
