@@ -15,9 +15,11 @@ function addResponse(response, array) {
 };
 
 async function getGrades(repoSlug) {
-		let repositoryScore = await fetch(`http://readmescore.ajm.codes/score.json?url=${encodeURIComponent(repoSlug)}`);
+	//https://api.github.com/repos/ajmarkow/woodlandmist/community/profile
+		let repositoryScore = await fetch(`https://api.github.com/repos/${repoSlug}/community/profile`,{headers: {'Authorization':`token ${process.env.GIT_TOKEN}`}});
 		return repositoryScore.json();
 };
+
 export async function main(event, context){
 //Request body is parsed as a json string
 	let listOfRepos = [];
