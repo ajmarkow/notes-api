@@ -42,7 +42,7 @@ export async function main(event, context){
       githubUsername: `${usernameParameter}`,
       userId: "123", //author user id
       repositories: `${repositoriesAsJSON}`,
-      repositories_scores: `${resolvedScores}`,
+      repositoriesScores: `${resolvedScores}`,
       gradeId: uuid.v1(), //unique id for each
       attachment: data.attachment,
       createdAt: Date.now(),

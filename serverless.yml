@@ -50,3 +50,10 @@ functions:
       - http:
           path: readme_grade
           method: post
+
+custom:
+  newRelic:
+    accountId: 2972094
+    apiKey: NRAK-ETFFJSZPEBAEIOEG3XO95M7LSQD
+    enableExtension: true
+    enableIntegration: true
