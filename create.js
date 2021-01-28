@@ -40,7 +40,7 @@ export const main = handler(async (event, context) => {
 		Item: {
 			//Attributes of item being created by api
 			githubUsername: `${usernameParameter}`,
-			userId: "123", //author user id
+			userId: event.requestContext.identity.cognitoIdentityId, //author user id
 			repositories: `${repositoriesAsJSON}`,
 			repositoriesScores: `${resolvedScores}`,
 			gradeId: uuid.v1(), //unique id for each
