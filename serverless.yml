@@ -53,13 +53,5 @@ functions:
       - http:
           path: grades
           method: get
-          cors: true
 resources:
   - ${file(resources/api-gateway-errors.yml)}
-  
-custom:
-  newRelic:
-    accountId: 2972094
-    apiKey: process.env.NEW_RELIC_API_KEY
-    enableExtension: true
-    enableIntegration: true
